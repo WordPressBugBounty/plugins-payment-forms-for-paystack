@@ -43,7 +43,10 @@ class Field_Shortcodes {
 			$atts,
 			'text'
 		);
-	
+
+		// sanitize name attribute before using it.
+		$atts['name'] = $this->sanitize_and_escape( $atts['name'] );
+		
 		// translators: %s: input field name to be entered by the user
 		$name     = sanitize_text_field( sprintf( esc_attr__( 'Enter %s', 'pff-paystack' ), $atts['name'] ) );
 		$required = $atts['required'] === 'required' ? 'required' : '';
@@ -69,6 +72,7 @@ class Field_Shortcodes {
 	 * @return string
 	 */
 	public function textarea_field( $atts ) {
+		
 		$atts = shortcode_atts(
 			array(
 				'name'     => esc_html__( 'Title', 'pff-paystack' ),
@@ -77,7 +81,9 @@ class Field_Shortcodes {
 			$atts,
 			'textarea'
 		);
-
+		// sanitize name attribute before using it
+		$atts['name'] = $this->sanitize_and_escape( $atts['name'] );
+		
 		// translators: %s: textarea field to be entered by the user
 		$name     = sanitize_text_field( sprintf( esc_attr__( 'Enter %s', 'pff-paystack' ), $atts['name'] ) );
 		$required = $atts['required'] === 'required' ? 'required' : '';
@@ -157,7 +163,9 @@ class Field_Shortcodes {
 			'input'
 		);
 
+		$atts['name'] = $this->sanitize_and_escape( $atts['name'] );
 		$name       = sanitize_text_field( $atts['name'] );
+		
 		$required   = $atts['required'] === 'required' ? 'required' : '';
 		$fileInputId = uniqid( 'file-input-' );
 		$textInputId = uniqid( 'text-input-' );
@@ -195,7 +203,10 @@ class Field_Shortcodes {
 			$atts,
 			'datepicker'
 		);
-	
+
+		// sanitize name attribute before using it
+        $atts['name'] = $this->sanitize_and_escape( $atts['name'] );	
+		
 		// translators: %s: datepicker field to be selected by the user
 		$name     = sanitize_text_field( sprintf( esc_attr__( 'Enter %s', 'pff-paystack' ), $atts['name'] ) );
 		$required = $atts['required'] === 'required' ? 'required' : '';
@@ -299,5 +310,25 @@ class Field_Shortcodes {
 		$code .= '</div></div>';
 	
 		return $code;
+	}
+
+	/**
+	 * Sanitize and escape value for HTML rendering.
+	 *
+	 * @param string $value
+	 * @return string The sanitized and escaped string.
+	 */
+	private function sanitize_and_escape( $value ) {
+	    // Remove all HTML tags, including malformed ones
+		$value = wp_kses( $value, array() );
+
+	    // Replace backticks with single quotes
+	    $value = str_replace( '`', '&#96;', $value );
+
+	    // Sanitize the string for safe database storage
+	    $value = sanitize_text_field( $value );
+
+	    // Escape the string for safe HTML output
+	    return esc_html( $value );
 	}
 }

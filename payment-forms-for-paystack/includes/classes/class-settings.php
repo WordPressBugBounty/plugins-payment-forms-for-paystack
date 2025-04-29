@@ -191,4 +191,15 @@ class Settings {
 		}
 		return $result;
 	}
+
+	/**
+	 * Sanitises the field name
+	 *
+	 * @param string $value
+	 * @return string
+	 * 
+	 */
+	private function sanitise_field( $value ) {
+		return sanitize_text_field( $value );
+	}
 }
