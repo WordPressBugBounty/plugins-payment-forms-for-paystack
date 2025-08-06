@@ -164,6 +164,7 @@ function PffPaystackFee()
                     }
                 }
             );
+
             if ($("#pf-quantity").length) {
 				$( "#pf-quantity" ).on( 'change', function(event){
 					checkMinimumVal();
@@ -205,7 +206,6 @@ function PffPaystackFee()
                         .find("#pf-amount")
                         .val();
                     }
-					
 
                     if (Number(amount) > 0) {
                     } else {
@@ -228,6 +228,7 @@ function PffPaystackFee()
                         );
                         return false;
                     }
+
                     if (checkMinimumVal() == false) {
                         $(this)
                         .find("#pf-amount")
@@ -595,7 +596,6 @@ function PffPaystackFee()
                     );
                 }
             );
-
 
 			function checkMinimumVal() {
 				if ( $("#pf-amount").length ) {

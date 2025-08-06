@@ -101,7 +101,7 @@ class Settings {
 		// Run through each group, and the fields in there.
 		foreach ( $fields as $group => $fields ) {
 			foreach ( $fields as $field_key => $args ) {
-				register_setting( 'kkd-pff-paystack-settings-group', $field_key );
+				register_setting( 'kkd-pff-paystack-settings-group', $field_key, [ $this, 'sanitise_field' ] );
 			}
 		}
 	}
@@ -196,7 +196,7 @@ class Settings {
 	 * Sanitises the field name
 	 *
 	 * @param string $value
-	 * @return string
+	 * /
 	 * 
 	 */
 	private function sanitise_field( $value ) {

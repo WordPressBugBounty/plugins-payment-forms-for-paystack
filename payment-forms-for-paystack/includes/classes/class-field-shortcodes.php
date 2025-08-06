@@ -313,9 +313,9 @@ class Field_Shortcodes {
 	}
 
 	/**
-	 * Sanitize and escape value for HTML rendering.
+	 * Sanitize and escape a string for safe HTML output.
 	 *
-	 * @param string $value
+	 * @param string $value The input string to sanitize and escape.
 	 * @return string The sanitized and escaped string.
 	 */
 	private function sanitize_and_escape( $value ) {
